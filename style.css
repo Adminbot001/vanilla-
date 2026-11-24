@@ -1,0 +1,446 @@
+:root {
+    --bg: #0a0a14;
+    --card: rgba(26, 26, 46, 0.55);
+    --card-hover: rgba(38, 38, 66, 0.75);
+    --text: #e8e8f0;
+    --accent: #4ade80;
+    --accent-2: #22d3ee;
+    --accent-3: #a78bfa;
+    --danger: #f87171;
+    --muted: #8b8ba7;
+    --border: rgba(255, 255, 255, 0.08);
+}
+
+* { box-sizing: border-box; }
+
+html, body { margin: 0; padding: 0; }
+
+body {
+    min-height: 100vh;
+    font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    overflow-x: hidden;
+    position: relative;
+}
+
+/* ============ ФОН ============ */
+.bg {
+    position: fixed;
+    inset: 0;
+    z-index: -2;
+    overflow: hidden;
+}
+
+.orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.35;
+    animation: floatOrb 18s ease-in-out infinite;
+}
+
+.orb-1 { width: 420px; height: 420px; background: #4ade80; top: -120px; left: -120px; animation-delay: 0s; }
+.orb-2 { width: 500px; height: 500px; background: #22d3ee; bottom: -160px; right: -160px; animation-delay: -6s; }
+.orb-3 { width: 360px; height: 360px; background: #a78bfa; top: 40%; left: 50%; animation-delay: -12s; }
+
+@keyframes floatOrb {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    33%      { transform: translate(60px, -40px) scale(1.1); }
+    66%      { transform: translate(-40px, 50px) scale(0.95); }
+}
+
+.grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+        linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+    background-size: 48px 48px;
+    mask-image: radial-gradient(ellipse at center, black 40%, transparent 80%);
+    -webkit-mask-image: radial-gradient(ellipse at center, black 40%, transparent 80%);
+}
+
+/* ============ ПЛАВАЮЩИЕ БЛОКИ ============ */
+.floating-blocks {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.block {
+    position: absolute;
+    width: 28px;
+    height: 28px;
+    border-radius: 6px;
+    background: linear-gradient(135deg, rgba(74,222,128,0.15), rgba(34,211,238,0.1));
+    border: 1px solid rgba(255,255,255,0.08);
+    backdrop-filter: blur(2px);
+    animation: floatBlock 22s linear infinite;
+}
+
+.b1 { left: 8%;  top: 100%; animation-delay: 0s;   animation-duration: 26s; }
+.b2 { left: 22%; top: 100%; animation-delay: -8s;  animation-duration: 32s; width: 18px; height: 18px; }
+.b3 { left: 41%; top: 100%; animation-delay: -14s; animation-duration: 28s; }
+.b4 { left: 63%; top: 100%; animation-delay: -4s;  animation-duration: 34s; width: 22px; height: 22px; }
+.b5 { left: 78%; top: 100%; animation-delay: -18s; animation-duration: 24s; }
+.b6 { left: 92%; top: 100%; animation-delay: -10s; animation-duration: 30s; width: 16px; height: 16px; }
+
+@keyframes floatBlock {
+    0%   { transform: translateY(0) rotate(0deg);     opacity: 0; }
+    10%  { opacity: 1; }
+    90%  { opacity: 1; }
+    100% { transform: translateY(-110vh) rotate(360deg); opacity: 0; }
+}
+
+/* ============ ХЕДЕР ============ */
+header {
+    padding: 3rem 1.5rem 1.5rem;
+    text-align: center;
+}
+
+h1 {
+    margin: 0 0 0.4rem;
+    font-size: 2.6rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, #4ade80, #22d3ee, #a78bfa);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    background-size: 200% 200%;
+    animation: gradientShift 6s ease infinite;
+}
+
+.glow { filter: drop-shadow(0 0 24px rgba(74, 222, 128, 0.25)); }
+
+@keyframes gradientShift {
+    0%, 100% { background-position: 0% 50%; }
+    50%      { background-position: 100% 50%; }
+}
+
+.subtitle { color: var(--muted); margin: 0 0 1.2rem; }
+
+/* ============ БЕЙДЖ ============ */
+.badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.4rem 1rem;
+    border-radius: 999px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    background: rgba(139, 139, 167, 0.15);
+    color: var(--muted);
+    border: 1px solid var(--border);
+    transition: all 0.4s ease;
+}
+
+.badge .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: currentColor;
+    display: inline-block;
+}
+
+.badge.online {
+    background: rgba(74, 222, 128, 0.15);
+    color: var(--accent);
+    border-color: rgba(74, 222, 128, 0.4);
+    box-shadow: 0 0 20px rgba(74, 222, 128, 0.2);
+}
+.badge.online .dot {
+    animation: pulse 1.6s ease-in-out infinite;
+    box-shadow: 0 0 8px var(--accent);
+}
+
+.badge.offline {
+    background: rgba(248, 113, 113, 0.15);
+    color: var(--danger);
+    border-color: rgba(248, 113, 113, 0.4);
+}
+
+.badge.loading .dot { animation: blink 1s ease-in-out infinite; }
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1);   opacity: 1; }
+    50%      { transform: scale(1.6); opacity: 0.6; }
+}
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50%      { opacity: 0.3; }
+}
+
+/* ============ MAIN ============ */
+main {
+    max-width: 820px;
+    margin: 0 auto;
+    padding: 1rem 1.5rem 2rem;
+    display: grid;
+    gap: 1.2rem;
+}
+
+section {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 1.4rem 1.6rem;
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    transition: transform 0.35s ease, background 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
+}
+
+section:hover {
+    background: var(--card-hover);
+    border-color: rgba(74, 222, 128, 0.25);
+    transform: translateY(-3px);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35), 0 0 0 1px rgba(74, 222, 128, 0.1) inset;
+}
+
+h2 {
+    margin-top: 0;
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+    color: var(--text);
+    position: relative;
+    padding-left: 14px;
+}
+h2::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 5px;
+    height: 20px;
+    border-radius: 3px;
+    background: linear-gradient(180deg, var(--accent), var(--accent-2));
+    box-shadow: 0 0 12px rgba(74, 222, 128, 0.5);
+}
+
+/* ============ СТАТЫ ============ */
+.stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    padding: 1.2rem;
+    background: transparent;
+    border: none;
+    backdrop-filter: none;
+}
+.stats:hover { transform: none; background: transparent; border: none; box-shadow: none; }
+
+.stat-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 1.2rem 0.6rem;
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    transition: all 0.35s ease;
+    cursor: default;
+    position: relative;
+    overflow: hidden;
+}
+
+.stat-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(74,222,128,0.08), transparent 50%);
+    opacity: 0;
+    transition: opacity 0.35s ease;
+}
+.stat-card:hover { transform: translateY(-4px) scale(1.02); border-color: rgba(74, 222, 128, 0.3); }
+.stat-card:hover::after { opacity: 1; }
+
+.stat-label {
+    font-size: 0.78rem;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 0.4rem;
+}
+
+.stat-value {
+    font-size: 1.6rem;
+    font-family: ui-monospace, 'Cascadia Code', Consolas, monospace;
+    font-weight: 600;
+}
+.stat-value b { color: var(--accent); text-shadow: 0 0 16px rgba(74, 222, 128, 0.4); }
+.stat-value .sep { color: var(--muted); margin: 0 2px; }
+.stat-value .unit { color: var(--muted); font-size: 0.9rem; margin-left: 2px; }
+
+/* ============ IP + кнопка ============ */
+.ip-block {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.8rem;
+}
+
+code {
+    flex: 1;
+    min-width: 200px;
+    background: rgba(0, 0, 0, 0.35);
+    padding: 0.7rem 1rem;
+    border-radius: 10px;
+    font-family: ui-monospace, monospace;
+    font-size: 1rem;
+    border: 1px solid var(--border);
+    word-break: break-all;
+    transition: border-color 0.3s ease;
+}
+code:hover { border-color: rgba(34, 211, 238, 0.4); }
+
+.btn {
+    position: relative;
+    background: linear-gradient(135deg, var(--accent), var(--accent-2));
+    color: #0a0a14;
+    border: none;
+    padding: 0.7rem 1.3rem;
+    border-radius: 10px;
+    font-weight: 700;
+    cursor: pointer;
+    font-size: 0.9rem;
+    overflow: hidden;
+    transition: transform 0.2s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 16px rgba(74, 222, 128, 0.25);
+}
+.btn:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(74, 222, 128, 0.4); }
+.btn:active { transform: translateY(0) scale(0.97); }
+
+.btn::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+    transform: translateX(-100%);
+    transition: transform 0.6s ease;
+}
+.btn:hover::before { transform: translateX(100%); }
+
+.btn.copied { background: linear-gradient(135deg, #22d3ee, #4ade80); }
+
+/* ============ ИГРОКИ ============ */
+.player-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+    gap: 0.6rem;
+    min-height: 40px;
+}
+
+.player-list li {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 0.45rem 0.8rem;
+    font-size: 0.95rem;
+    opacity: 0;
+    transform: translateY(8px);
+    animation: popIn 0.4s ease forwards;
+    transition: all 0.25s ease;
+}
+.player-list li:hover {
+    background: rgba(74, 222, 128, 0.08);
+    border-color: rgba(74, 222, 128, 0.3);
+    transform: translateY(-2px);
+}
+
+@keyframes popIn {
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.player-list img {
+    width: 28px;
+    height: 28px;
+    border-radius: 5px;
+    image-rendering: pixelated;
+    box-shadow: 0 0 0 2px rgba(74,222,128,0.2);
+}
+
+.player-list .muted {
+    color: var(--muted);
+    justify-content: center;
+    border-style: dashed;
+    grid-column: 1 / -1;
+}
+
+/* Скелетон загрузки */
+.skeleton {
+    height: 40px;
+    border-radius: 10px;
+    background: linear-gradient(90deg, rgba(255,255,255,0.03), rgba(255,255,255,0.08), rgba(255,255,255,0.03));
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+    border: 1px solid var(--border);
+    display: block !important;
+    opacity: 1 !important;
+    transform: none !important;
+}
+
+@keyframes shimmer {
+    0%   { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+}
+
+/* ============ ПРАВИЛА ============ */
+.rules-preview ul { margin: 0; padding-left: 1.2rem; }
+.rules-preview li {
+    margin-bottom: 0.5rem;
+    transition: color 0.2s ease, padding-left 0.2s ease;
+}
+.rules-preview li:hover { color: var(--accent); padding-left: 4px; }
+
+/* ============ ФУТЕР ============ */
+footer {
+    text-align: center;
+    padding: 2rem 1.5rem;
+    color: var(--muted);
+    font-size: 0.85rem;
+}
+
+/* ============ ПОЯВЛЕНИЕ ============ */
+.fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeUp 0.8s ease forwards;
+}
+.delay-1 { animation-delay: 0.15s; }
+.delay-2 { animation-delay: 0.3s; }
+.delay-3 { animation-delay: 0.45s; }
+.delay-4 { animation-delay: 0.6s; }
+
+@keyframes fadeUp {
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* ============ МОБИЛЬНЫЙ ============ */
+@media (max-width: 560px) {
+    h1 { font-size: 1.9rem; }
+    header { padding: 2rem 1rem 1rem; }
+    .stats { grid-template-columns: 1fr; padding: 0.6rem; }
+    section { padding: 1.1rem; }
+    .btn { width: 100%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}

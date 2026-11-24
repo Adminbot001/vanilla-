@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VanillaPlus — статус сервера</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Анимированный фон -->
+    <div class="bg">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+        <div class="grid"></div>
+    </div>
+
+    <!-- Плавающие блоки -->
+    <div class="floating-blocks" aria-hidden="true">
+        <div class="block b1"></div>
+        <div class="block b2"></div>
+        <div class="block b3"></div>
+        <div class="block b4"></div>
+        <div class="block b5"></div>
+        <div class="block b6"></div>
+    </div>
+
+    <header class="fade-in">
+        <h1 class="glow">⛏️ VanillaPlus</h1>
+        <p class="subtitle">Ванильный сервер с картой и статусом</p>
+        <span id="state-badge" class="badge loading">
+            <span class="dot"></span>
+            <span class="badge-text">Загрузка…</span>
+        </span>
+    </header>
+
+    <main>
+        <section class="stats fade-in delay-1">
+            <div class="stat-card">
+                <span class="stat-label">Игроки</span>
+                <span class="stat-value">
+                    <b id="players-online" class="counter">0</b>
+                    <span class="sep">/</span>
+                    <span id="players-max">—</span>
+                </span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-label">Пинг</span>
+                <span class="stat-value">
+                    <b id="ping" class="counter">0</b>
+                    <span class="unit">ms</span>
+                </span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-label">Версия</span>
+                <span class="stat-value" id="version">—</span>
+            </div>
+        </section>
+
+        <section class="fade-in delay-2">
+            <h2>IP для подключения</h2>
+            <div class="ip-block">
+                <code id="server-ip">—</code>
+                <button id="copy-btn" type="button" class="btn">
+                    <span class="btn-text">Скопировать</span>
+                </button>
+            </div>
+        </section>
+
+        <section class="fade-in delay-3">
+            <h2>Сейчас на сервере</h2>
+            <ul id="player-list" class="player-list">
+                <li class="skeleton"></li>
+                <li class="skeleton"></li>
+                <li class="skeleton"></li>
+            </ul>
+        </section>
+
+        <section class="rules-preview fade-in delay-4">
+            <h2>Краткие правила</h2>
+            <ul>
+                <li>Уважение к игрокам, без оскорблений и спама.</li>
+                <li>Честная игра: без читов, X-Ray и дюпов.</li>
+                <li>Не ломайте и не крадите чужие постройки.</li>
+                <li>PvP только по обоюдному согласию.</li>
+                <li>Подробные правила — в Discord.</li>
+            </ul>
+        </section>
+    </main>
+
+    <footer class="fade-in delay-4">
+        <p>© 2026 VanillaPlus. Сайт работает на GitHub Pages.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
