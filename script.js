@@ -1,5 +1,5 @@
 // ⚠️ ЗАМЕНИТЕ на публичный адрес из playit.gg или ваш домен
-const SERVER_ADDRESS = "vanilla+.playit.playit.pub";
+const SERVER_ADDRESS = "wap-decatur.tun.ply.gg";
 
 const els = {
     badge:         document.getElementById("state-badge"),
